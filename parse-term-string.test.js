@@ -25,3 +25,11 @@ Deno.test("Test query parser with whitespace and prefix", () => {
   const expected = ["category", "this is a long value"]
   assertEquals(parseTermString(query), expected)
 })
+
+
+
+Deno.test("Test query parser with regexp notation", () => {
+  const query = "/abc/"
+  const expected = ["term", /abc/]
+  assertEquals(parseTermString(query), expected)
+})
