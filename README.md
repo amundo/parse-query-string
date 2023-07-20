@@ -79,4 +79,4 @@ Please note that the provided modules facilitate the parsing of the query langua
 
 To try out the query language and see resulting data structures, try:
 
-[parse-query-string-test.html](parse-query-string-test.html)
+[parse-query-string-test.html](https://amundo.github.io/parse-query-string/parse-query-string-test.html)
