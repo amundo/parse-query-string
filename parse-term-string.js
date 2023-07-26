@@ -1,6 +1,4 @@
-let isRegexp = (value) => value.startsWith('/') && value.split('/').length == 3
-
-
+let isRegexp = (value) => value.startsWith('/') && value.split('/').length === 3
 
 let handleRegexp = (value) => {
   let [_, regexp, flags] = value.match(/\/(.*)\/(.*)/)
