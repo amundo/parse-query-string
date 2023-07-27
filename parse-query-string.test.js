@@ -28,7 +28,7 @@ Deno.test("Test query parser with two quoted terms", () => {
 Deno.test("Test query parser with two quoted terms and one unquoted term", () => {
   const query = `"abc" "def" ghi`
   const expected = ["abc", "def", "ghi"]
-    .map(value => ["term", value])
+    .map((value) => ["term", value])
   assertEquals(parseQueryString(query), expected)
 })
 
@@ -44,10 +44,15 @@ Deno.test("Test query parser with colon-prefixed category and value", () => {
   assertEquals(parseQueryString(query), expected)
 })
 
-
 Deno.test("Test query parser with colon-prefixed category with quoted long value", () => {
   const query = `otherCategory:"long quoted value"`
   const expected = [["otherCategory", "long quoted value"]]
   assertEquals(parseQueryString(query), expected)
 })
 
+Deno.test("Can use shortcuts", () => {
+  const query = `d:falcon`
+  const shortcuts = { "d": "description" }
+  const expected = [["description", "falcon"]]
+  assertEquals(parseQueryString(query, { shortcuts }), expected)
+})

@@ -1,24 +1,24 @@
-let isQuote = (c) => c === '"';
-let isSpace = (c) => c === ' ';
-let isntEmptyString = (c) => c !== '';
+let isQuote = (c) => c === '"'
+let isSpace = (c) => c === " "
+let isntEmptyString = (c) => c !== ""
 
 let tokenizeQuotedString = (query) => {
-  let insideQuotedString = false;
-  let currentToken = '';
+  let insideQuotedString = false
+  let currentToken = ""
 
-  let tokens = [];
+  let tokens = []
 
   for (let c of query) {
     if (isQuote(c) && !insideQuotedString) {
-      insideQuotedString = true;
+      insideQuotedString = true
     } else if (isQuote(c) && insideQuotedString) {
-      insideQuotedString = false;
+      insideQuotedString = false
     }
 
     if (isSpace(c) && !insideQuotedString) {
       if (isntEmptyString(currentToken)) {
-        tokens.push(currentToken.replaceAll(`"`, ''))
-        currentToken = ''
+        tokens.push(currentToken.replaceAll(`"`, ""))
+        currentToken = ""
       }
     } else {
       currentToken += c
@@ -26,10 +26,10 @@ let tokenizeQuotedString = (query) => {
   }
 
   if (isntEmptyString(currentToken)) {
-    tokens.push(currentToken.replace(/"/g, ''));
+    tokens.push(currentToken.replace(/"/g, ""))
   }
 
-  return tokens;
-};
+  return tokens
+}
 
-export { tokenizeQuotedString };
+export { tokenizeQuotedString }

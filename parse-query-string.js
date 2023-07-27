@@ -1,11 +1,17 @@
-import { tokenizeQuotedString } from './tokenize-quoted-string.js';
-import { parseTermString } from './parse-term-string.js'
+// parse-query-string.js
+import { tokenizeQuotedString } from "./tokenize-quoted-string.js"
+import { parseTermString } from "./parse-term-string.js"
 
-const parseQueryString = (query, defaultPrefix = 'term') => {
-  const tokens = tokenizeQuotedString(query);
+const parseQueryString = (query, options = {}) => {
+  const { defaultCategory = "term", shortcuts = {} } = options
 
-  return tokens
-    .map(token => parseTermString(token, defaultPrefix))
+  const tokens = tokenizeQuotedString(query)
+
+  let terms = tokens.map((token) =>
+    parseTermString(token, { defaultCategory, shortcuts })
+  )
+
+  return terms
 }
 
-export { parseQueryString };
+export { parseQueryString }

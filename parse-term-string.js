@@ -1,4 +1,4 @@
-let isRegexp = (value) => value.startsWith('/') && value.split('/').length === 3
+let isRegexp = (value) => value.startsWith("/") && value.split("/").length === 3
 
 let handleRegexp = (value) => {
   let [_, regexp, flags] = value.match(/\/(.*)\/(.*)/)
@@ -6,26 +6,30 @@ let handleRegexp = (value) => {
   return regexp
 }
 
-let parseTerm = ([category, value]) => {
-  if(isRegexp(value)){
+let handleTerm = ([category, value]) => {
+  if (isRegexp(value)) {
     return [category, handleRegexp(value)]
   } else {
     return [category, value]
   }
 }
 
-let parseTermString = (termString, defaultCategory="term") => {
+let parseTermString = (termString, options = {}) => {
+  let { defaultCategory = "term", shortcuts = {} } = options
+
   let [category, term] = ["", ""]
 
-  if(!termString.includes(":")) {
-    [category, term] = [defaultCategory, termString]
+  if (!termString.includes(":")) {
+    ;[category, term] = [defaultCategory, termString]
   } else {
-    [category, term] =  termString.split(":")
+    ;[category, term] = termString.split(":")
   }
-  return parseTerm([category, term])
+
+  if (shortcuts[category]) {
+    category = shortcuts[category]
+  }
+
+  return handleTerm([category, term])
 }
 
-export {
-  parseTermString
-}
-
+export { parseTermString }
